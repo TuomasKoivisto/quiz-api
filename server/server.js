@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 
 app.post('/questions', (req, res) => {
   var question = new Question({
-    question: 'test',
-    answer: 'test',
-    wrongAnswer: 'test',
+    question: 'test question',
+    answer: 'right answer',
+    wrongAnswer: 'wrong answer',
     category: 'test'
   });
 
@@ -29,3 +29,5 @@ app.post('/questions', (req, res) => {
 app.listen(3000, () => {
   console.log('Started on port 3000');
 });
+
+module.exports = { app };
