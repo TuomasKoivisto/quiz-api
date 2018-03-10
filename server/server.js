@@ -10,15 +10,26 @@ app.use(bodyParser.json());
 
 app.post('/questions', (req, res) => {
   var question = new Question({
-    question: 'test question',
-    answer: 'right answer',
-    wrongAnswer: 'wrong answer',
-    category: 'test'
+    question: req.body.question,
+    answer: req.body.answer,
+    wrongAnswer: req.body.wrongAnswer,
+    category: req.body.category
   });
 
   question.save().then(
     doc => {
       res.send(doc);
+    },
+    e => {
+      res.status(400).send(e);
+    }
+  );
+});
+
+app.get('/questions', (req, res) => {
+  Question.find().then(
+    questions => {
+      res.send({ questions });
     },
     e => {
       res.status(400).send(e);
