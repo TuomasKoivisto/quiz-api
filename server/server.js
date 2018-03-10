@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var { ObjectCategory } = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
 var { Question } = require('./models/question');
@@ -36,6 +37,20 @@ app.get('/questions', (req, res) => {
       res.status(400).send(e);
     }
   );
+});
+
+app.get('/questions/:category', (req, res) => {
+  var category = req.params.category;
+  Question.find({ category: { $eq: category } })
+    .then(questions => {
+      if (!questions) {
+        return res.status(404).send();
+      }
+      res.send({ questions });
+    })
+    .catch(e => {
+      res.status(400).send();
+    });
 });
 
 app.listen(port, () => {
