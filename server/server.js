@@ -8,6 +8,11 @@ var { Question } = require('./models/question');
 var app = express();
 const port = process.env.PORT || 3000;
 
+var corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'X-Requested-With'
+};
+
 app.use(bodyParser.json());
 
 app.post('/questions', (req, res) => {
@@ -29,6 +34,9 @@ app.post('/questions', (req, res) => {
 });
 
 app.get('/questions', (req, res) => {
+  // res.header('Access-Control-Allow-Origin', '*');
+  // res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  res.header(corsHeaders);
   Question.find().then(
     questions => {
       res.send({ questions });
