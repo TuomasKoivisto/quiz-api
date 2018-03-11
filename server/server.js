@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 var bodyParser = require('body-parser');
 var { ObjectCategory } = require('mongodb');
 
@@ -13,6 +14,7 @@ var corsHeaders = {
   'Access-Control-Allow-Headers': 'X-Requested-With'
 };
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/questions', (req, res) => {
