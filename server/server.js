@@ -16,6 +16,7 @@ var corsHeaders = {
 app.use(bodyParser.json());
 
 app.post('/questions', (req, res) => {
+  res.header(corsHeaders);
   var question = new Question({
     question: req.body.question,
     answer: req.body.answer,
@@ -34,8 +35,6 @@ app.post('/questions', (req, res) => {
 });
 
 app.get('/questions', (req, res) => {
-  // res.header('Access-Control-Allow-Origin', '*');
-  // res.header('Access-Control-Allow-Headers', 'X-Requested-With');
   res.header(corsHeaders);
   Question.find().then(
     questions => {
@@ -48,6 +47,7 @@ app.get('/questions', (req, res) => {
 });
 
 app.get('/questions/:category', (req, res) => {
+  res.header(corsHeaders);
   var category = req.params.category;
   Question.find({ category: { $eq: category } })
     .then(questions => {
